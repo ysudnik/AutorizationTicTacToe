@@ -10,6 +10,8 @@
 <form id="myForm2" action="/game">
     <table id="tikfields" >
 
+
+
         <c:forEach items="${fieldParam}" var="eachelemet" varStatus="outerCounter">
             <tr>
 
