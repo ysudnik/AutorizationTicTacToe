@@ -23,6 +23,7 @@
                 </c:forEach>
             </tr>
         </c:forEach>
+
     </table>
 
 </form>
