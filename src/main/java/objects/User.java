@@ -9,10 +9,10 @@ import javax.validation.constraints.Min;
 public class User {
     @NotBlank
 
-    public String name;
+    private String name;
 
-    public String password;
-    public String confirmPassword;
+    private String password;
+    private String confirmPassword;
 
     @Override
     public String toString() {

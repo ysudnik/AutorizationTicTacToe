@@ -7,25 +7,31 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags/form" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spr" %>
 <html>
 <head>
     <title>Autorization</title>
 </head>
 <body>
-<h3>Пожалуйста, авторизуйтесь</h3>
+<span style="float: right">
+    <a href="?lang=en">en</a>
+    |
+    <a href="?lang=de">ru</a>
+</span>
+<p><sp:message code="autorization"/></p>
 <spring:form action="/autorization" method="post"
              modelAttribute="userParam">
-    <h3>Enter your name</h3>
+    <h3><spr:message code="name"/></h3>
     <spring:input path="name"/>
     <spring:errors path="name"/>
-    <h3>Enter password</h3>
+    <h3><spr:message code="password"/></h3>
     <spring:password path="password"/>
     <spring:errors path="password"/>
-    <h3>Confirm password</h3>
+    <h3><spr:message code="confirmPassword"/></h3>
     <spring:password path="confirmPassword"/>
     <spring:errors path="confirmPassword"/>
-    <input type = "submit" value = "Send"/>
+    <input type="submit" value="Send"/>
 </spring:form>
-<h3>Выполните ввод или <a href=/reg>зарегистрируйтесь</a> </h3>
+<h3><spr:message code="enter"/> <a href=/reg><spr:message code="registry"/></a></h3>
 </body>
 </html>

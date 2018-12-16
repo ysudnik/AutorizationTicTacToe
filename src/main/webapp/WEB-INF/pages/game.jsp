@@ -6,6 +6,11 @@
 </head>
 
 <body>
+<span style="float: right">
+    <a href="?lang=en">en</a>
+    |
+    <a href="?lang=de">ru</a>
+</span>
 
 <form id="myForm2" action="/game" method="post">
     <table id="tikfields">

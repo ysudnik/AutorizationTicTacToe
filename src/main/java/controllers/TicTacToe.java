@@ -2,14 +2,17 @@ package controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+
 import static java.lang.String.*;
 
 @Controller
 public class TicTacToe {
 
     static int number = 3;
+
     @RequestMapping("/startGame")
     public String start(HttpServletRequest request) {
         String[][] field = new String[number][number];
@@ -24,30 +27,36 @@ public class TicTacToe {
 
     @RequestMapping("/game")
     public String game(HttpServletRequest request) {
-        String[][] fields = createGameField(request);
-        String[][] fieldComp;
-        if (checkGame(fields).equals(String.valueOf(MessageGame.nobody)) && canMove(fields)) {
-            fieldComp = compMove(fields);
-        } else {
-            fieldComp = fields;
+        String[][] fields;
+        try {
+            fields = createGameField(request);
+            String[][] fieldComp;
+            if (checkGame(fields).equals(String.valueOf(MessageGame.nobody)) && canMove(fields)) {
+                fieldComp = compMove(fields);
+            } else {
+                fieldComp = fields;
+            }
+            String label = "";
+            if (checkGame(fieldComp).equals(String.valueOf(MessageGame.X))) {
+                label = String.valueOf(MessageGame.YOU_WIN);
+            } else if (checkGame(fieldComp).equals("0")) {
+                label = String.valueOf(MessageGame.YOU_LOSE);
+            } else if (checkGame(fieldComp).equals(String.valueOf(MessageGame.nobody)) && !canMove(fieldComp)) {
+                label = String.valueOf(MessageGame.STANDOFF);
+            }
+            if (!label.equals("")) {
+                request.setAttribute("label", label);
+            }
+            request.setAttribute("fieldParam", fieldComp);
+            return "game";
+        } catch (NullPointerException npe) {
+            return "redirect:/";
         }
-        String label = "";
-        if (checkGame(fieldComp).equals(String.valueOf(MessageGame.X))) {
-            label = String.valueOf(MessageGame.YOU_WIN);
-        } else if (checkGame(fieldComp).equals("0")) {
-            label = String.valueOf(MessageGame.YOU_LOSE);
-        } else if (checkGame(fieldComp).equals(String.valueOf(MessageGame.nobody)) && !canMove(fieldComp)) {
-            label = String.valueOf(MessageGame.STANDOFF);
-        }
-        if (!label.equals("")) {
-            request.setAttribute("label", label);
-        }
-        request.setAttribute("fieldParam", fieldComp);
-        return "game";
     }
 
 
-    public static String[][] createGameField(HttpServletRequest req) {
+    public static String[][] createGameField(HttpServletRequest req) throws NullPointerException {
+
         Map<String, String[]> allMap = req.getParameterMap();
         String[][] field = new String[number][number];
         for (int i = 0; i < number; i++) {

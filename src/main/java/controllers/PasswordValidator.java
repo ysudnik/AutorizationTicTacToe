@@ -57,17 +57,17 @@ public class PasswordValidator implements Validator {
     public void validate(Object target, Errors errors) {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
-                "required.password", "May be not empty");
+                "required.password","May be not empty" );
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword",
                 "required.confirmPassword", "May be not empty");
 
         User user = (User)target;
-
-        if(!(user.getPassword().equals(user.getConfirmPassword()))){
+        if (user.getConfirmPassword()!=null){
+        if(!(user.getPassword().equals(user.getConfirmPassword()))) {
             errors.rejectValue("password", "not equal", "passwords not equal ");
-            errors.rejectValue("confirmPassword","not equal","passwords not equal");
-
+            errors.rejectValue("confirmPassword", "not equal", "passwords not equal");
+        }
         }
 
     }
