@@ -7,5 +7,6 @@ public enum MessageGame {
     nobody,
     X,
     Y,
+    Z,
 
 }
